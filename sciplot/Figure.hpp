@@ -88,7 +88,7 @@ class Figure
 
   private:
     /// Counter of how many plot / singleplot objects have been instanciated in the application
-    static std::size_t m_counter;
+    inline static std::size_t m_counter = 0;
 
     /// Plot id derived from m_counter upon construction
     /// Must be the first member due to constructor initialization order!
@@ -124,9 +124,6 @@ class Figure
     /// All the plots that have been added to the figure
     std::vector<std::vector<PlotVariant>> m_plots;
 };
-
-// Initialize the counter of plot objects
-inline std::size_t Figure::m_counter = 0;
 
 inline Figure::Figure(const std::initializer_list<std::initializer_list<PlotVariant>>& plots)
     : m_id(m_counter++), m_scriptfilename("multishow" + internal::str(m_id) + ".plt")

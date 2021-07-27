@@ -215,7 +215,8 @@ class PlotBase
     virtual auto repr() const -> std::string = 0;
 
   protected:
-    static std::size_t m_counter; ///< Counter of how many plot / singleplot objects have been instanciated in the application
+    inline static std::size_t m_counter = 0; ///< Counter of how many plot / singleplot objects have been instanciated
+    // in the application
     std::size_t m_id = 0; ///< The Plot id derived from m_counter upon construction (must be the first member due to constructor initialization order!)
     bool m_autoclean = true; ///< Toggle automatic cleaning of temporary files (enabled by default)
     std::string m_palette; ///< The name of the gnuplot palette to be used
@@ -254,9 +255,6 @@ class PlotBase
     std::vector<DrawSpecs> m_drawspecs; ///< The plot specs for each call to gnuplot plot function
     std::vector<std::string> m_customcmds; ///< The strings containing gnuplot custom commands
 };
-
-// Initialize the counter of plot objects
-inline std::size_t PlotBase::m_counter = 0;
 
 inline PlotBase::PlotBase()
     : m_id(m_counter++), m_scriptfilename("show" + internal::str(m_id) + ".plt"), m_datafilename("plot" + internal::str(m_id) + ".dat"), m_xlabel("x"), m_ylabel("y"), m_rlabel("r"), m_xtics_major_bottom("x"), m_xtics_major_top("x2"), m_xtics_minor_bottom("x"), m_xtics_minor_top("x2"), m_ytics_major_left("y"), m_ytics_major_right("y2"), m_ytics_minor_left("y"), m_ytics_minor_right("y2"), m_ztics_major("z"), m_ztics_minor("z"), m_rtics_major("r"), m_rtics_minor("r")
